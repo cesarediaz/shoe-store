@@ -1,9 +1,11 @@
+require 'json'
+
 class Inventory
   MINIMUM = 0..9
   MEDIUM = 10..500
   HIGH = 501..999
   def initialize(attribute)
-    @attribute = attribute
+    @attribute = JSON.parse(attribute)
   end
 
   def store

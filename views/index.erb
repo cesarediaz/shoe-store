@@ -5,9 +5,25 @@
   <body>
 
     # WebSockets
-    <div id='chat-log'>
-
+    <%# <div id='chat-log'> %>
     <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+
+    <script src='http://localhost:9292/faye.js'></script>
+    <div id="websocket" style="background-color: #999999;">
+    </div>
+    <script>
+    $(function () {
+    var faye = new Faye.Client('http://localhost:9292/faye');
+      console.log(faye);
+      faye.subscribe('/messages/new', function (data) {
+        console.log(data);
+        $('#websocket').text(data['msg']);
+      });
+    });
+
+
+    </script>
+    <%# <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
     <script>
       var socket, host;
       host = 'ws://localhost:3001';
@@ -39,9 +55,10 @@
       });
 
       function addMessage(msg) {
+        $('#chat-log').empty();
         $('#chat-log').append('' + msg + '');
       }
 
-    </script>
+    </script> %>
   </body>
 </html>
