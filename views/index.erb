@@ -1,15 +1,39 @@
 <!doctype html>
 <html>
   <head>
+    <style>
+      #store {
+        background-color: #7d797b;
+        color: #fff;
+        font-size: 20px;
+        text-aligh: center;
+      }
+      .minimum { background-color: white; color: red;}
+      .medium { background-color: green; color: white;}
+      .high { background-color: blue; color: white;}
+    </style>
   </head>
   <body>
-
-    # WebSockets
-    <%# <div id='chat-log'> %>
     <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
 
     <script src='http://localhost:9292/faye.js'></script>
-    <div id="websocket" style="background-color: #999999;">
+    <div id="store">
+      Store
+    </div>
+
+    Quantity:
+    <div id="quantity">
+    </div>
+
+    Stock:
+    <div id="minimum" class="minimum" hidden>
+      Minimum
+    </div>
+    <div id="medium" class="medium" hidden>
+      Medium
+    </div>
+    <div id="high" class="high" hidden>
+      High
     </div>
     <script>
     $(function () {
@@ -17,48 +41,15 @@
       console.log(faye);
       faye.subscribe('/messages/new', function (data) {
         console.log(data);
-        $('#websocket').text(data['msg']);
+        $('#minimum').hide();
+        $('#medium').hide();
+        $('#high').hide();
+
+        $('#store').text(data['store']);
+        $('#quantity').text(data['quantity']);
+        $('#' + data['style']).show();
       });
     });
-
-
     </script>
-    <%# <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
-    <script>
-      var socket, host;
-      host = 'ws://localhost:3001';
-
-      function connect() {
-        try {
-          socket = new WebSocket(host);
-
-          addMessage('Socket State: ' + socket.readyState);
-
-          socket.onopen = function() {
-            addMessage('Socket Status: ' + socket.readyState + ' (open)');
-          }
-
-          socket.onclose = function() {
-            addMessage('Socket Status: ' + socket.readyState + ' (closed)');
-          }
-
-          socket.onmessage = function(msg) {
-            addMessage('Received: ' + msg.data);
-          }
-        } catch(exception) {
-          addMessage('Error: ' + exception);
-        }
-      }
-
-      $(function() {
-        connect();
-      });
-
-      function addMessage(msg) {
-        $('#chat-log').empty();
-        $('#chat-log').append('' + msg + '');
-      }
-
-    </script> %>
   </body>
 </html>

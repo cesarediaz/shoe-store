@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 require 'json'
 
+# Inventory class
 class Inventory
   MINIMUM = 0..9
-  MEDIUM = 10..500
-  HIGH = 501..999
+  MEDIUM = 10..49
+  HIGH = 50..100
+
   def initialize(attribute)
     @attribute = JSON.parse(attribute)
   end

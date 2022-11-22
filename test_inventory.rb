@@ -1,14 +1,12 @@
+# frozen_string_literal: true
+
 require 'minitest/autorun'
-require './inventory.rb'
+require './inventory'
 
+# Inventory test classs
 class TestInventory < Minitest::Test
-
   def setup
-    @data = {
-      'store' => 'ALDO Crossgates Mall',
-      'model' => 'CAELAN',
-      'inventory' => 29
-    }
+    @data = '{"store":"ALDO Crossgates Mall","model":"CAELAN","inventory":29}'
     @inventory = Inventory.new(@data)
   end
 
@@ -25,21 +23,21 @@ class TestInventory < Minitest::Test
   end
 
   def test_minimum_stock_qty
-    @data["inventory"] = 9
+    @data = '{"store":"ALDO Crossgates Mall","model":"CAELAN","inventory":9}'
     @inventory = Inventory.new(@data)
 
     assert_equal @inventory.alert, :minimum
   end
 
   def test_medium_stock_qty
-    @data["inventory"] = 300
+    @data = '{"store":"ALDO Crossgates Mall","model":"CAELAN","inventory":30}'
     @inventory = Inventory.new(@data)
 
     assert_equal @inventory.alert, :medium
   end
 
   def test_high_stock_qty
-    @data["inventory"] = 550
+    @data = '{"store":"ALDO Crossgates Mall","model":"CAELAN","inventory":55}'
     @inventory = Inventory.new(@data)
 
     assert_equal @inventory.alert, :high

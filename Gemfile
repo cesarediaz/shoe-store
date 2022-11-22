@@ -13,3 +13,4 @@ gem 'thin', '~> 1.8', '>= 1.8.1'
 gem 'net-http'
 
 gem 'byebug'
+gem 'rubocop'
