@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '2.7.6'
+ruby '3.1.2'
 
 gem 'eventmachine', '~> 1.2', '>= 1.2.7'
 gem 'faye', '~> 1.4'

@@ -7,13 +7,13 @@ require 'faye/websocket'
 require 'net/http'
 require 'json'
 require 'sinatra/base'
-require 'thin'
-require './broadcast'
+require './modules/broadcast'
 
 EventMachine.run do
   include Broadcast
 
   class App < Sinatra::Base
+    set :port, 3000
     get '/' do
       erb :index
     end
@@ -47,5 +47,5 @@ EventMachine.run do
     ws = nil
   end
 
-  App.run! port: '3000'
+  App.run!
 end
