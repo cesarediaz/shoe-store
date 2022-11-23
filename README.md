@@ -106,3 +106,39 @@ EM.run {
   end
 }
 ```
+
+# Challenge instructions for installation
+
+## Gems
+
+Assume that you have installed Ruby version 3.1.2 and if not you need to install it
+
+```
+rvm install 3.1.2
+```
+
+and run bundle to install gems
+
+```
+bundle install
+```
+
+## Environmet
+
+Set port value for websocket service
+
+```
+export WSPORT=3001
+```
+
+## Run app
+
+You must have installed foreman gem locally
+
+```
+foreman start
+```
+
+## Observe how it works on a browser
+
+Go to the next url [http://localhost:3000/](http://localhost:3000/)
