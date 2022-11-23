@@ -11,14 +11,19 @@
       .minimum { background-color: white; color: red;}
       .medium { background-color: green; color: white;}
       .high { background-color: blue; color: white;}
+      .houses_list { background-color: #bba86d; color: #000;}
     </style>
   </head>
   <body>
     <script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
 
     <script src='http://localhost:9292/faye.js'></script>
+    Store
     <div id="store">
-      Store
+    </div>
+
+    Model
+    <div id="model">
     </div>
 
     Quantity:
@@ -35,18 +40,29 @@
     <div id="high" class="high" hidden>
       High
     </div>
+
+    Houses with low stock where to send excedent:
+    <div id="houses_list" class="houses_list" hidden>
+    </div>
+
     <script>
     $(function () {
-    var faye = new Faye.Client('http://localhost:9292/faye');
-      console.log(faye);
+      var faye = new Faye.Client('http://localhost:9292/faye');
       faye.subscribe('/messages/new', function (data) {
         console.log(data);
         $('#minimum').hide();
         $('#medium').hide();
         $('#high').hide();
+        $('#houses_list').hide();
+
 
         $('#store').text(data['store']);
+        $('#model').text(data['model']);
         $('#quantity').text(data['quantity']);
+        if (data['houses'] != undefined && data['houses'].length > 0) {
+          $('#houses_list').text(data['houses']);
+          $('#houses_list').show();
+        }
         $('#' + data['style']).show();
       });
     });

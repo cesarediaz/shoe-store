@@ -26,11 +26,16 @@ EventMachine.run do
     p [:message, JSON.parse(event.data)]
 
     inventory = Inventory.new(event.data)
+    alert = inventory.alert
+    model = inventory.model
+
     broadcast(
       '/messages/new',
       store: inventory.store,
+      model: model,
       quantity: inventory.inventory,
-      style: inventory.alert
+      style: alert,
+      houses: inventory.shoes_transfer
     )
   end
 
@@ -42,7 +47,7 @@ EventMachine.run do
   App.run! port: '3000'
 
   def broadcast(channel, msg)
-    message = {channel: channel, data: msg}
+    message = { channel: channel, data: msg }
     uri = URI.parse('http://localhost:9292/faye')
     Net::HTTP.post_form(uri, message: message.to_json)
   end
