@@ -1,21 +1,27 @@
 # frozen_string_literal: true
 
 require './inventory'
+require './modules/broadcast'
+require './modules/shops'
 require 'eventmachine'
 require 'faye'
 require 'faye/websocket'
 require 'net/http'
 require 'json'
 require 'sinatra/base'
-require './modules/broadcast'
 
 EventMachine.run do
   include Broadcast
+  include Shops
 
   class App < Sinatra::Base
     set :port, 3000
     get '/' do
       erb :index
+    end
+
+    get '/api/v1/shops' do
+      shops.to_json
     end
   end
 
@@ -29,7 +35,6 @@ EventMachine.run do
     p [:message, JSON.parse(event.data)]
 
     inventory = Inventory.new(event.data)
-
     broadcast(
       '/messages/new',
       {
