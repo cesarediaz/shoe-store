@@ -36,7 +36,7 @@ EventMachine.run do
         store: inventory.store,
         model: inventory.model,
         quantity: inventory.inventory,
-        style: inventory.alert,
+        stock: inventory.alert,
         houses: inventory.shoes_transfer
       }
     )

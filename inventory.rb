@@ -8,6 +8,7 @@ class Inventory
   MINIMUM = 0..9
   MEDIUM = 10..49
   HIGH = 50..100
+  AVG_STOCK = 30
 
   def initialize(attribute)
     @attribute = JSON.parse(attribute)
@@ -42,7 +43,7 @@ class Inventory
 
     houses = []
     stock_in_houses = @redis.keys("*#{model}")
-    stock_in_houses.each { |house| houses << house.split(':')[0] if @redis.get(house).to_i < 10 }
+    stock_in_houses.each { |house| houses << house.split(':')[0] if @redis.get(house).to_i < AVG_STOCK }
     @redis.set("#{store}:#{model}", inventory)
     @redis.close
     houses

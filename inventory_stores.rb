@@ -54,5 +54,6 @@ loop do
       }, quirks_mode: true
     )
   end
-  sleep 5
+  sec = [*1..10].sample
+  sleep sec
 end

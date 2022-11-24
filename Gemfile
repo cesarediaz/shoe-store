@@ -12,6 +12,7 @@ gem 'net-http'
 gem 'redis', '~> 5.0', '>= 5.0.5'
 gem 'sinatra', '~> 3.0', '>= 3.0.3'
 gem 'thin', '~> 1.8', '>= 1.8.1'
+gem 'bootstrap', '~> 5.2', '>= 5.2.2'
 
 gem 'byebug'
 gem 'rubocop'
