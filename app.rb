@@ -23,6 +23,11 @@ EventMachine.run do
     get '/api/v1/shops' do
       shops.to_json
     end
+
+    get '/api/v1/shops/:key/models' do
+      shop_models(params[:key]).to_json
+    end
+
   end
 
   ws = Faye::WebSocket::Client.new('ws://localhost:3001/')
