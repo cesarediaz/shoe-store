@@ -1,7 +1,7 @@
 module Shops
   def shops
     redis = Redis.new
-    redis.keys.map { |k| k.split(':')[0] }.uniq
+    redis.keys('ALDO*').map { |k| k.split(':')[0] }.uniq
   end
 
   def shop_models(shop)
