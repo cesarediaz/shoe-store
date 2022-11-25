@@ -15,17 +15,21 @@ EventMachine.run do
   include Shops
 
   class App < Sinatra::Base
-    set :port, 3000
+    configure do
+      set :port, 3000
+      set :db, Redis.new(reconnect_attempts: [0, 0.25, 1,])
+    end
+
     get '/' do
       erb :index
     end
 
     get '/api/v1/shops' do
-      shops.to_json
+      shops(settings.db).to_json
     end
 
     get '/api/v1/shops/:key/models' do
-      shop_models(params[:key]).to_json
+      shop_models(settings.db, params[:key]).to_json
     end
 
   end
@@ -39,7 +43,7 @@ EventMachine.run do
   ws.on :message do |event|
     p [:message, JSON.parse(event.data)]
 
-    inventory = Inventory.new(event.data)
+    inventory = Inventory.new(App.settings.db, event.data)
     broadcast(
       '/messages/new',
       {

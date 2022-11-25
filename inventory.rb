@@ -10,9 +10,9 @@ class Inventory
   HIGH = 50..100
   AVG_STOCK = 30
 
-  def initialize(attribute)
+  def initialize(db, attribute)
     @attribute = JSON.parse(attribute)
-    @redis = Redis.new
+    @redis = db
   end
 
   def store
@@ -45,7 +45,6 @@ class Inventory
     stock_in_houses = @redis.keys("*#{model}")
     stock_in_houses.each { |house| houses << house.split(':')[0] if @redis.get(house).to_i < AVG_STOCK }
     @redis.set("#{store}:#{model}", inventory)
-    @redis.close
     houses
   end
 end
