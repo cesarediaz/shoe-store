@@ -11,6 +11,7 @@ class App < Sinatra::Base
     set :port, 3000
     set :db, Redis.new(reconnect_attempts: [0, 0.25, 1])
     set :views, proc { File.expand_path('../views', __dir__) }
+    set :public, proc { File.expand_path('../public', __dir__) }
   end
 
   get '/' do
