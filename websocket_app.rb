@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './inventory'
+require './models/inventory'
 require './modules/broadcast'
 require './web/app'
 require 'eventmachine'

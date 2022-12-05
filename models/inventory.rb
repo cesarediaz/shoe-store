@@ -8,7 +8,7 @@ class Inventory
   MINIMUM = 0..9
   MEDIUM = 10..49
   HIGH = 50..100
-  AVG_STOCK = 99
+  AVG_STOCK = 30
 
   def initialize(db, attribute)
     @attribute = JSON.parse(attribute)
